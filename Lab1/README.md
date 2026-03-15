@@ -1,39 +1,13 @@
-# Laboratorio 1 - Regresion Lineal Multivariable
+Dataset utilizado: New York City Airbnb Open Data.
 
-Estudiante: Erick Manuel Arancibia Flores
+Este dataset contiene información sobre alojamientos en
+la ciudad de Nueva York, incluyendo características como
+precio, número de reviews, disponibilidad y ubicación.
 
-## Dataset utilizado
+El dataset contiene aproximadamente:
 
-Housing Price Dataset
+m = 48895 ejemplos
+n = 16 características
 
-Fuente:
-https://www.kaggle.com/datasets/sukhmandeepsinghbrar/housing-price-dataset
-
-## Descripcion del dataset
-
-Este dataset contiene informacion sobre propiedades inmobiliarias
-como el tamaño de la vivienda, numero de habitaciones, baños,
-numero de pisos, estacionamientos y otras caracteristicas.
-
-Estas variables permiten predecir el precio de una vivienda
-utilizando modelos de regresion.
-
-## Variable objetivo
-
-La variable que se desea predecir es:
-
-price → precio de la vivienda
-
-## Metodos implementados
-
-En este laboratorio se implementaron tres metodos:
-
-- Regresion lineal multivariable
-- Regresion polinomica
-- Ecuacion normal
-
-## Objetivo
-
-Entrenar un modelo capaz de predecir el precio de una vivienda
-a partir de sus caracteristicas y realizar al menos 100 predicciones
-para evaluar su funcionamiento.
+Estas características permiten entrenar un modelo de
+regresión lineal para predecir el precio de un alojamiento.
