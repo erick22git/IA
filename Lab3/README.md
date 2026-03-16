@@ -59,9 +59,5 @@ Durante el entrenamiento se observó una **disminución progresiva de la funció
 
 Finalmente, el modelo fue evaluado utilizando el conjunto de prueba, obteniendo una precisión adecuada que demuestra la efectividad del algoritmo de clasificación implementado.
 
----
 
-## Autor
-
-Trabajo desarrollado como parte de una práctica de laboratorio sobre **regresión logística y clasificación binaria** en Machine Learning.
 
