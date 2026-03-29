@@ -1,1 +1,40 @@
+Laboratorio 5 — Aplicación de Redes Neuronales en PyTorch
+Materia: Inteligencia Artificial I
+Estudiante: Erick Manuel Arancibia Flores
 
+Descripción General
+En este laboratorio se aplicaron los conceptos de redes neuronales en PyTorch revisados en los cuadernillos 02, 03 y 04 de la carpeta Pytorch, integrando las herramientas de diseño de modelos, manejo de datasets y guardado de checkpoints a los modelos desarrollados en laboratorios anteriores. El trabajo se dividió en tres partes: un cuadernillo unificado que consolida los conceptos base de PyTorch, un notebook de regresión aplicado al dataset de precios de casas, y un notebook de clasificación binaria y multiclase aplicado a datasets reales.
+
+Cuadernillo Unificado PyTorch (02 + 03 + 04)
+El primer cuadernillo integra en un solo archivo los contenidos de los tres cuadernillos de referencia proporcionados por el docente. Se comenzó con la carga del dataset MNIST utilizando scikit-learn, normalizando los datos y convirtiéndolos a tensores de PyTorch para su procesamiento en CPU o GPU según disponibilidad del sistema.
+Se implementaron tres tipos de modelos de redes neuronales. El primero fue un modelo secuencial utilizando la clase torch.nn.Sequential, que permite definir una red como una secuencia de capas lineales y funciones de activación ReLU. El segundo fue un modelo personalizado heredando de torch.nn.Module, donde se definió el constructor con las capas y el método forward con la lógica de propagación hacia adelante. El tercero fue un modelo con conexiones residuales, donde la salida de una capa se suma a la entrada de la siguiente antes de pasar a la capa final, lo cual no es posible con el modelo secuencial y requiere una clase personalizada.
+Para el manejo eficiente de los datos se implementó la clase Dataset personalizada con los métodos obligatorios de inicialización, longitud y obtención de elementos por índice. Se utilizó la clase DataLoader para iterar los datos en mini-batches con mezclado aleatorio en cada época, incluyendo además una función collate personalizada para demostrar la flexibilidad de esta herramienta.
+El entrenamiento de todos los modelos se realizó con la función de pérdida CrossEntropyLoss y el optimizador SGD. Se documentó el proceso de guardado del state dict del modelo como método recomendado por ser el más eficiente y portable, junto con el guardado del modelo completo como alternativa. Finalmente se implementó la exportación del modelo en formato TorchScript mediante los métodos de tracing y scripting, y en formato ONNX para su uso en entornos sin Python, incluyendo clases de preprocesamiento y postprocesamiento dentro del modelo exportado.
+
+Regresión — Predicción de Precios de Casas
+El segundo cuadernillo aplica las herramientas de PyTorch al problema de regresión multivariable trabajado en laboratorios anteriores, utilizando el dataset House Sales in King County que contiene 21,613 registros de ventas de casas en Seattle con 21 variables.
+Se seleccionaron 13 características numéricas relevantes para predecir el precio, incluyendo superficie habitable, número de habitaciones, calidad de construcción, año de construcción y otras variables estructurales. Los datos se normalizaron con StandardScaler tanto para las características como para la variable objetivo, aplicando el ajuste únicamente sobre el conjunto de entrenamiento para no filtrar información del conjunto de prueba hacia el modelo.
+Se creó la clase HousePriceDataset heredando de torch.utils.data.Dataset para encapsular los datos del CSV y se instanciaron DataLoaders con batches de 64 registros para entrenamiento y prueba. La red neuronal para regresión se definió con tres capas ocultas de 128, 64 y 32 neuronas respectivamente con activación ReLU y Dropout del 20 por ciento para regularización, y una capa de salida de una sola neurona sin función de activación, ya que se trata de predecir un valor continuo.
+El entrenamiento se realizó con la función de pérdida MSELoss, equivalente a la función de costo J de theta implementada manualmente en el laboratorio de regresión anterior, y el optimizador Adam con tasa de aprendizaje de 0.001. Se implementó un scheduler que reduce la tasa de aprendizaje automáticamente cuando el modelo deja de mejorar. Durante las 150 épocas de entrenamiento se guardó automáticamente el checkpoint del modelo con menor pérdida en el conjunto de validación. Al finalizar se evaluó el modelo con las métricas RMSE y R cuadrado, se generaron gráficas de convergencia y de precios reales versus predichos, y se demostró la carga del modelo guardado para realizar una predicción sobre una casa con características específicas.
+
+Clasificación Binaria — Predicción de Ingresos
+El tercer cuadernillo aplica PyTorch al modelo de regresión logística binaria del laboratorio anterior, utilizando el dataset Census Income KDD con más de 199,000 registros y 41 variables demográficas y laborales, donde el objetivo es predecir si una persona gana más o menos de 50,000 dólares al año.
+Se realizó el preprocesamiento completo con Pandas, codificando todas las variables categóricas con LabelEncoder y normalizando con StandardScaler. El dataset se dividió en 80 por ciento para entrenamiento y 20 por ciento para prueba con estratificación para mantener la proporción de clases en ambos conjuntos. Se incluyó una sección comparativa entre la función sigmoide implementada manualmente con NumPy y la versión incorporada en PyTorch, demostrando que los resultados son idénticos.
+Se creó la clase CensusDataset y DataLoaders con batches de 512 registros. La red neuronal de clasificación binaria se definió con tres capas ocultas y la función sigmoide en la capa de salida para producir probabilidades entre 0 y 1. La función de pérdida utilizada fue BCELoss, que corresponde exactamente a la función calcularCosto implementada manualmente en el laboratorio anterior. El entrenamiento incluyó gráficas de evolución del costo y la accuracy por época, guardado de checkpoint del mejor modelo, y evaluación final con matriz de confusión y reporte de precisión, recall y F1 por clase.
+
+Clasificación Multiclase — Categorización de Productos de Moda
+El cuarto cuadernillo aplica PyTorch al problema de clasificación multiclase con imágenes del laboratorio 4, utilizando el dataset Fashion Product Images que combina el archivo styles.csv con una carpeta de imágenes de productos de moda.
+Se cargó el CSV con Pandas, se filtraron las clases con menos de 500 imágenes disponibles y se balanceó el dataset tomando 2,403 imágenes por cada una de las cuatro categorías resultantes: Apparel, Accessories, Footwear y Personal Care. Las imágenes se procesaron con OpenCV redimensionándolas a 32 por 32 píxeles, convirtiéndolas de BGR a RGB, normalizando los valores de 0 a 1 y aplanando cada imagen en un vector de 3,072 valores.
+Se implementó la clase FashionDataset y DataLoaders con batches de 64 imágenes. La red neuronal para clasificación multiclase se diseñó con capas de Batch Normalization para estabilizar el entrenamiento con datos de imagen y Dropout del 40 por ciento para evitar el sobreajuste. La capa de salida produce un score por cada una de las cuatro categorías sin función de activación, ya que CrossEntropyLoss incorpora Softmax internamente. Se generaron gráficas de costo y accuracy por época, matriz de confusión, visualización de predicciones correctas e incorrectas sobre imágenes reales, y una función de predicción que acepta imágenes nuevas en formato jpg o webp y retorna la categoría predicha con su porcentaje de confianza.
+
+Tecnologías Utilizadas
+
+Python 3.14
+PyTorch 2.6 — redes neuronales, entrenamiento y exportación de modelos
+NumPy — operaciones matemáticas con arrays y tensores
+Pandas — carga y preprocesamiento de datasets tabulares
+OpenCV — procesamiento y redimensionamiento de imágenes
+Scikit-learn — normalización, división de datos y métricas de evaluación
+Matplotlib — visualización de curvas de aprendizaje y resultados
+ONNX y ONNXRuntime — exportación del modelo para entornos sin PyTorch
+Visual Studio Code con extensión Jupyter — entorno de desarrollo
