@@ -17,8 +17,8 @@ Dataset: Census Income KDD
 Fuente: UCI Machine Learning Repository
 Características
 
-Registros: +199,000 (m ≥ 50,000 ✔)
-Propiedades: 41 columnas demográficas y laborales (n ≥ 40 ✔)
+Registros: +199,000 (m ≥ 50,000 )
+Propiedades: 41 columnas demográficas y laborales (n ≥ 40 )
 Clases: 5 grupos de ingresos creados combinando nivel de ingresos y semanas trabajadas
 
 Clases definidas
@@ -38,8 +38,8 @@ Dataset: Fashion Product Images
 Fuente: Kaggle — Fashion Product Images Dataset
 Características
 
-Imágenes: +9,600 balanceadas (m ≥ 5,000 ✔)
-Propiedades: 3,072 valores por imagen (32×32×3 píxeles) (n > 100 ✔)
+Imágenes: +9,600 balanceadas (m ≥ 5,000 )
+Propiedades: 3,072 valores por imagen (32×32×3 píxeles) (n > 100 )
 Clases: 4 categorías de productos de moda
 Tipo: Multimodal — combina archivo CSV con imágenes JPEG
 
