@@ -8,7 +8,7 @@
 
 ## 1. Sobre el dataset elegido
 
-Para el Punto 2 trabajé con **EMNIST Balanced**, una extensión del clásico MNIST que contiene 131.600 imágenes de 28x28 píxeles repartidas en 47 clases balanceadas (mezcla letras mayúsculas, minúsculas y dígitos manuscritos). Vino directo desde OpenML usando `fetch_openml(data_id=41039)` así que la carga es prácticamente igual que el ejemplo original con MNIST, lo cual me permitió mantener intacto el flujo del cuadernillo sin meter librerías nuevas.
+Para el Punto 2 trabajé con **EMNIST Balanced**, una extensión del clásico MNIST que contiene 131.600 imágenes de 28x28 píxeles repartidas en 47 clases balanceadas (mezcla letras mayúsculas, minúsculas y dígitos manuscritos). Vino directo desde OpenML usando `fetch_openml(data_id=41039)` , lo cual me permitió mantener intacto el flujo del cuadernillo sin meter librerías nuevas.
 
 Cumple con los requisitos del laboratorio sin problema:
 - **n** (features) = 784 (los píxeles aplanados de cada imagen 28x28).
